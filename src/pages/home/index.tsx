@@ -15,6 +15,7 @@ interface CoinProps {
     market_cap: string;
     formatedPrice: string;
     formatedMarket: string;
+    numberDelta: number;
 }
 
 interface DataProps{
@@ -44,6 +45,7 @@ export function Home(){
                         ...item,
                         formatedPrice: price.format(Number(item.price)),
                         formatedMarket: price.format(Number(item.market_cap)),
+                        numberDelta: parseFloat(item.delta_24h.replace(",", "."))
                     }
                     return formated;
                 })
@@ -96,7 +98,7 @@ export function Home(){
                     <td className={styles.tdLabel} data-label="Preço">
                         {coin.formatedPrice}
                     </td>
-                    <td className={Number(coin?.delta_24h) >= 0 ? styles.tdLoss : styles.tdProfit} data-label="Volume">
+                    <td className={Number(coin.numberDelta) >= 0 ? styles.tdProfit : styles.tdLoss } data-label="Volume">
                         <span> {coin.delta_24h} </span>
                     </td>
                 </tr>
